@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Big Duck Data 🦆</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      cursor: url('https://cdn-icons-png.flaticon.com/512/616/616408.png') 16 16, auto;
+    }
+    .quack {
+      display: none;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    .duck-emoji {
+      animation: float 2s infinite ease-in-out;
+    }
+  </style>
+</head>
+
+<body class="bg-yellow-50 text-gray-800 font-sans">
+  <header class="bg-yellow-200 p-6 shadow-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <h1 class="text-3xl font-bold">🦆 Big Duck Data</h1>
+      <nav class="space-x-4 text-lg">
+        <a href="#about" class="hover:text-yellow-600">About</a>
+        <a href="#services" class="hover:text-yellow-600">Services</a>
+        <a href="#contact" class="hover:text-yellow-600">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto p-6">
+    <section class="text-center mt-10">
+      <h2 class="text-4xl font-bold mb-4">Smart Data, Featherlight Solutions</h2>
+      <p class="text-xl mb-6">At <strong>Big Duck Data</strong>, we help your data take flight with cloud-native analytics, AI-powered insights, and web-scale storage solutions. Just like a duck paddling calmly on the surface but working like mad underneath — we get the job done, effortlessly.</p>
+      <div class="text-6xl duck-emoji">🦆</div>
+    </section>
+
+    <section id="about" class="mt-16">
+      <h3 class="text-3xl font-semibold mb-4">About Us</h3>
+      <p class="text-lg">Founded in 2020 by a group of quacktastic engineers, Big Duck Data began with a simple idea: make data delightful. We specialize in turning messy lakes of information into clean, flying V-formations of actionable intelligence. Whether you're a startup or an enterprise, we're the ducks for the job.</p>
+    </section>
+
+    <section id="services" class="mt-16">
+      <h3 class="text-3xl font-semibold mb-4">Our Services</h3>
+      <ul class="list-disc ml-5 text-lg space-y-2">
+        <li>🦆 Data Lake Engineering</li>
+        <li>🧠 AI/ML Model Deployment</li>
+        <li>☁️ Cloud Data Migration</li>
+        <li>📊 Dashboarding & BI</li>
+        <li>🧼 Data Cleaning as a Service (DaaS)</li>
+      </ul>
+    </section>
+
+    <section id="contact" class="mt-16 mb-20">
+      <h3 class="text-3xl font-semibold mb-4">Get in Touch</h3>
+      <p class="text-lg mb-4">Whether you're just dipping your webbed feet in or ready to take the plunge, we’d love to chat!</p>
+      <form class="space-y-4 max-w-md">
+        <input type="text" placeholder="Your Name" class="w-full p-2 border rounded">
+        <input type="email" placeholder="Your Email" class="w-full p-2 border rounded">
+        <textarea placeholder="Your Message" class="w-full p-2 border rounded"></textarea>
+        <button type="submit" class="bg-yellow-400 hover:bg-yellow-500 px-4 py-2 rounded font-semibold">Send Message</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="bg-yellow-100 p-4 text-center">
+    <p>© 2025 Big Duck Data 🦆 | Built with love & feathers</p>
+  </footer>
+
+</body>
+
+</html>
