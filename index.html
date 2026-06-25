@@ -1,79 +1,298 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Big Duck Data 🦆</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <style>
-    body {
-      cursor: url('https://cdn-icons-png.flaticon.com/512/616/616408.png') 16 16, auto;
-    }
-    .quack {
-      display: none;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-    }
-    .duck-emoji {
-      animation: float 2s infinite ease-in-out;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>SuperToolbar Setup Wizard™ — Step 1 of ∞</title>
+<style>
+  :root{
+    --beige:#d8d2c0;
+    --button-blue: #1c4fa0;
+    --button-blue-dark:#0d2c5c;
+    --danger:#a30000;
+    --win98-gray:#c0c0c0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
+    background: repeating-linear-gradient(45deg, #6699cc, #6699cc 10px, #5588bb 10px, #5588bb 20px);
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow-x:hidden;
+  }
+  .window{
+    width:560px;
+    background: var(--win98-gray);
+    border: 3px outset #fff;
+    box-shadow: 6px 6px 0 rgba(0,0,0,.4);
+  }
+  .titlebar{
+    background: linear-gradient(to right, var(--button-blue-dark), var(--button-blue));
+    color:white;
+    padding:6px 10px;
+    font-weight:bold;
+    font-size:14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .titlebar .x{
+    background:#c0c0c0;
+    color:black;
+    border:2px outset white;
+    width:20px;
+    height:18px;
+    text-align:center;
+    line-height:16px;
+    font-size:12px;
+    cursor: not-allowed;
+  }
+  .content{
+    padding:18px 20px;
+    background: var(--beige);
+    border-top:2px solid #fff;
+  }
+  h2{
+    margin-top:0;
+    font-size:18px;
+    color:#222;
+  }
+  .blink{
+    animation: blink 1s steps(1) infinite;
+    color:var(--danger);
+    font-weight:bold;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+  .fineprint{
+    font-size:10px;
+    color:#555;
+    line-height:1.4;
+    max-height:60px;
+    overflow:auto;
+    border:1px inset #999;
+    background:white;
+    padding:6px;
+    margin:10px 0;
+  }
+  .checkbox-row{
+    display:flex;
+    align-items:flex-start;
+    gap:8px;
+    margin:10px 0;
+    font-size:13px;
+  }
+  .checkbox-row input{
+    margin-top:3px;
+    transform: scale(1.3);
+  }
+  .double-negative{
+    font-style:italic;
+  }
+  .progress-wrap{
+    margin:14px 0;
+    background:white;
+    border:1px inset #888;
+    height:18px;
+    position:relative;
+  }
+  .progress-bar{
+    height:100%;
+    width:37%;
+    background: repeating-linear-gradient(45deg, var(--button-blue), var(--button-blue) 8px, var(--button-blue-dark) 8px, var(--button-blue-dark) 16px);
+    transition:width .2s;
+  }
+  .btn-row{
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+    margin-top:16px;
+    position:relative;
+    height:40px;
+  }
+  button{
+    font-family:inherit;
+    font-size:13px;
+    padding:7px 18px;
+    border:2px outset #eee;
+    background:#d4d4d4;
+    cursor:pointer;
+  }
+  button:active{ border-style:inset; }
+  #noBtn{
+    position:relative;
+    transition: transform .15s ease;
+  }
+  #yesBtn{
+    background: linear-gradient(to bottom, #7fdc7f, #3da53d);
+    font-weight:bold;
+    color:white;
+    border-color:#bdf7bd;
+  }
+  #cancelGhost{
+    color:#888;
+    font-size:9px;
+    text-align:right;
+    margin-top:2px;
+  }
+  .swap-label{
+    font-size:11px;
+    color:#444;
+    margin-top:14px;
+    border-top:1px dashed #999;
+    padding-top:8px;
+  }
+  .toggle-confusion{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:12px;
+    margin-top:4px;
+  }
+  .badge{
+    background:var(--danger);
+    color:white;
+    font-size:10px;
+    padding:2px 6px;
+    border-radius:8px;
+    margin-left:6px;
+  }
+  #toast{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#222;
+    color:#fff;
+    padding:10px 16px;
+    border-radius:4px;
+    font-size:12px;
+    font-family:sans-serif;
+    opacity:0;
+    transition:opacity .3s;
+    pointer-events:none;
+  }
+  #toast.show{ opacity:1; }
+  .step-indicator{
+    font-size:10px;
+    color:#666;
+    margin-top:10px;
+    text-align:center;
+  }
+</style>
 </head>
+<body>
 
-<body class="bg-yellow-50 text-gray-800 font-sans">
-  <header class="bg-yellow-200 p-6 shadow-md sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto flex justify-between items-center">
-      <h1 class="text-3xl font-bold">🦆 Big Duck Data</h1>
-      <nav class="space-x-4 text-lg">
-        <a href="#about" class="hover:text-yellow-600">About</a>
-        <a href="#services" class="hover:text-yellow-600">Services</a>
-        <a href="#contact" class="hover:text-yellow-600">Contact</a>
-      </nav>
+<div class="window">
+  <div class="titlebar">
+    <span>⚙️ SuperToolbar Setup Wizard™ — InstallShield Classic Edition</span>
+    <span class="x" title="this does nothing">✕</span>
+  </div>
+  <div class="content">
+    <h2>Do you <u>not</u> want to skip <span class="blink">not</span> installing the optional BonusBar?</h2>
+
+    <div class="fineprint">
+      By proceeding (or possibly declining — see checkbox 3) you agree that you have read,
+      and do not disagree with not having disagreed with, the End User License Agreement,
+      Sub-Clause 4(b)(ii), which may or may not apply retroactively to toolbars you have
+      previously uninstalled. Scroll for 40 more pages of this. There are no more pages.
+      This is the whole agreement. It just keeps repeating. Forever.
     </div>
-  </header>
 
-  <main class="max-w-4xl mx-auto p-6">
-    <section class="text-center mt-10">
-      <h2 class="text-4xl font-bold mb-4">Smart Data, Featherlight Solutions</h2>
-      <p class="text-xl mb-6">At <strong>Big Duck Data</strong>, we help your data take flight with cloud-native analytics, AI-powered insights, and web-scale storage solutions. Just like a duck paddling calmly on the surface but working like mad underneath — we get the job done, effortlessly.</p>
-      <div class="text-6xl duck-emoji">🦆</div>
-    </section>
+    <div class="checkbox-row">
+      <input type="checkbox" id="c1" checked>
+      <label for="c1">Don't not install the recommended add-ons <em>(unchecking this installs them)</em></label>
+    </div>
 
-    <section id="about" class="mt-16">
-      <h3 class="text-3xl font-semibold mb-4">About Us</h3>
-      <p class="text-lg">Founded in 2020 by a group of quacktastic engineers, Big Duck Data began with a simple idea: make data delightful. We specialize in turning messy lakes of information into clean, flying V-formations of actionable intelligence. Whether you're a startup or an enterprise, we're the ducks for the job.</p>
-    </section>
+    <div class="checkbox-row">
+      <input type="checkbox" id="c2">
+      <label for="c2" class="double-negative">I do not wish to refuse declining the optional toolbar I never wanted</label>
+    </div>
 
-    <section id="services" class="mt-16">
-      <h3 class="text-3xl font-semibold mb-4">Our Services</h3>
-      <ul class="list-disc ml-5 text-lg space-y-2">
-        <li>🦆 Data Lake Engineering</li>
-        <li>🧠 AI/ML Model Deployment</li>
-        <li>☁️ Cloud Data Migration</li>
-        <li>📊 Dashboarding & BI</li>
-        <li>🧼 Data Cleaning as a Service (DaaS)</li>
-      </ul>
-    </section>
+    <div class="checkbox-row">
+      <input type="checkbox" id="c3" checked>
+      <label for="c3">Skip the step where I skip skipping this step <span class="badge">RECOMMENDED</span></label>
+    </div>
 
-    <section id="contact" class="mt-16 mb-20">
-      <h3 class="text-3xl font-semibold mb-4">Get in Touch</h3>
-      <p class="text-lg mb-4">Whether you're just dipping your webbed feet in or ready to take the plunge, we’d love to chat!</p>
-      <form class="space-y-4 max-w-md">
-        <input type="text" placeholder="Your Name" class="w-full p-2 border rounded">
-        <input type="email" placeholder="Your Email" class="w-full p-2 border rounded">
-        <textarea placeholder="Your Message" class="w-full p-2 border rounded"></textarea>
-        <button type="submit" class="bg-yellow-400 hover:bg-yellow-500 px-4 py-2 rounded font-semibold">Send Message</button>
-      </form>
-    </section>
-  </main>
+    <div class="toggle-confusion">
+      <input type="radio" name="really" id="r1"> <label for="r1">Yes, I don't</label>
+      <input type="radio" name="really" id="r2" checked> <label for="r2">No, I do</label>
+    </div>
 
-  <footer class="bg-yellow-100 p-4 text-center">
-    <p>© 2025 Big Duck Data 🦆 | Built with love & feathers</p>
-  </footer>
+    <div class="progress-wrap"><div class="progress-bar" id="bar"></div></div>
+    <div class="step-indicator" id="stepText">Step 1 of 1 (estimated: 14 steps)</div>
+
+    <div class="btn-row">
+      <button id="cancelBtn">Cancel</button>
+      <button id="noBtn" onclick="dodge(event)">No, thanks</button>
+      <button id="yesBtn" onclick="confirmInstall()">I Agree &amp; Continue ➜</button>
+    </div>
+    <div id="cancelGhost">(Cancel also installs it. There is no escape.)</div>
+
+    <div class="swap-label">
+      Note: the button labeled "No, thanks" will attempt to evade your cursor.
+      This is, allegedly, for your own protection.
+    </div>
+  </div>
+</div>
+
+<div id="toast">Congratulations, you have agreed to something.</div>
+
+<script>
+  const noBtn = document.getElementById('noBtn');
+  const yesBtn = document.getElementById('yesBtn');
+  const toast = document.getElementById('toast');
+  const bar = document.getElementById('bar');
+  const stepText = document.getElementById('stepText');
+
+  let dodgeCount = 0;
+  function dodge(e){
+    e.preventDefault();
+    dodgeCount++;
+    const maxX = window.innerWidth - 160;
+    const maxY = window.innerHeight - 80;
+    const randX = Math.random() * maxX - maxX/2;
+    const randY = Math.random() * 100 - 50;
+    noBtn.style.transform = `translate(${randX/4}px, ${randY/4}px)`;
+    noBtn.textContent = dodgeCount < 3 ? "No, thanks"
+      : dodgeCount < 6 ? "Wait— no!"
+      : dodgeCount < 9 ? "STOP CLICKING ME"
+      : "fine. FINE.";
+    if (dodgeCount >= 10){
+      noBtn.textContent = "Okay you win, but actually no";
+      noBtn.onclick = function(){
+        showToast("Congratulations, the BonusBar has installed itself out of spite.");
+      };
+    }
+    showToast("Nice try. (" + dodgeCount + " dodge" + (dodgeCount===1?"":"s") + ")");
+  }
+
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(window._t);
+    window._t = setTimeout(()=> toast.classList.remove('show'), 1800);
+  }
+
+  let fakeStep = 1;
+  function confirmInstall(){
+    fakeStep++;
+    let pct = Math.min(37 + fakeStep*9, 100);
+    bar.style.width = pct + "%";
+    stepText.textContent = "Step " + fakeStep + " of " + Math.max(14, fakeStep+12) + " (estimated: more than that)";
+    if (pct < 100){
+      showToast("Installing Step " + fakeStep + "... (this changes nothing)");
+    } else {
+      showToast("Installation complete. Nothing was actually installed. You're welcome.");
+      bar.style.width = "100%";
+    }
+  }
+
+  document.getElementById('cancelBtn').onclick = function(){
+    showToast("Cancelling... by installing.");
+    confirmInstall();
+  };
+</script>
 
 </body>
-
 </html>
